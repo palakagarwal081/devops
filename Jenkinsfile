@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/palakagarwal081/devops.git'  // Update this with your GitHub URL
+                git 'https://github.com/palakagarwal081/devops.git'
             }
         }
 
@@ -35,16 +35,11 @@ pipeline {
             }
         }
 
-        stage('Terraform Apply') {
+        stage('Terraform Init & Apply') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'azure-credentials-id', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')]) {
-                    script {
-                        // Ensure Terraform is initialized
-                        bat """
-                            terraform init
-                            terraform apply -auto-approve
-                        """
-                    }
+                dir('iac') {
+                    bat 'terraform init'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
@@ -63,3 +58,4 @@ pipeline {
         }
     }
 }
+
