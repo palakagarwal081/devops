@@ -40,7 +40,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'azure-credentials-id', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')]) {
                     script {
                         // Ensure Terraform is initialized
-                        sh """
+                        bat """
                             terraform init
                             terraform apply -auto-approve
                         """
