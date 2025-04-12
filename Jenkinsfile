@@ -17,7 +17,7 @@ pipeline {
             steps {
                 dir('ProductService') {
                     script {
-                        sh "docker build -t ${ACR_NAME}/${IMAGE_NAME}:latest ."
+                        bat "docker build -t ${ACR_NAME}/${IMAGE_NAME}:latest ."
                     }
                 }
             }
@@ -28,8 +28,8 @@ pipeline {
                 script {
                     withCredentials([[$class: 'AzureServicePrincipal', credentialsId: 'azure-credentials-id']]) {
                         // Log into ACR using Azure Service Principal
-                        sh 'az acr login --name codecraftacr'
-                        sh "docker push ${ACR_NAME}/${IMAGE_NAME}:latest"
+                        bat 'az acr login --name codecraftacr'
+                        bat "docker push ${ACR_NAME}/${IMAGE_NAME}:latest"
                     }
                 }
             }
@@ -40,10 +40,10 @@ pipeline {
                 script {
                     withCredentials([[$class: 'AzureServicePrincipal', credentialsId: 'azure-credentials-id']]) {
                         // Log into Azure and get AKS credentials
-                        sh 'az aks get-credentials --resource-group codecraft-rg --name codecraft-aks'
+                        bat 'az aks get-credentials --resource-group codecraft-rg --name codecraft-aks'
                         // Apply Kubernetes deployment and service
-                        sh 'kubectl apply -f k8s/deployment.yaml'
-                        sh 'kubectl apply -f k8s/service.yaml'
+                        bat 'kubectl apply -f k8s/deployment.yaml'
+                        bat 'kubectl apply -f k8s/service.yaml'
                     }
                 }
             }
