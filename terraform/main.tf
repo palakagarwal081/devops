@@ -24,7 +24,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "codecraftacr123" # must be globally unique
+  name                = "codecraftacr123"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Basic"
@@ -63,5 +63,8 @@ resource "azurerm_role_assignment" "acr_pull" {
 resource "azurerm_role_assignment" "acr_push" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPush"
-  principal_id         = var.client_id  # The Service Principal's ID for pushing to ACR
+  principal_id         = var.service_principal_object_id
+  principal_type       = "ServicePrincipal"
+
+  depends_on = [azurerm_container_registry.acr]
 }
