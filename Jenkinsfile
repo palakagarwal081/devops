@@ -17,12 +17,12 @@ pipeline {
             steps {
                 dir('ProductService') {
                     script {
-                        docker.build("${ACR_NAME}/${IMAGE_NAME}:latest")
+                        sh "docker build -t ${ACR_NAME}/${IMAGE_NAME}:latest ."
                     }
                 }
             }
         }
-
+        
         stage('Push to ACR') {
             steps {
                 script {
