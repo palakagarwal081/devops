@@ -16,9 +16,7 @@ provider "azurerm" {
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
   subscription_id = var.subscription_id
-
 }
-
 
 resource "azurerm_resource_group" "rg" {
   name     = "codecraft-rg"
@@ -60,4 +58,10 @@ resource "azurerm_role_assignment" "acr_pull" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "acr_push" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPush"
+  principal_id         = var.client_id  # The Service Principal's ID for pushing to ACR
 }
