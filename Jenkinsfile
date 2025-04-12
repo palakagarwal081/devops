@@ -35,6 +35,20 @@ pipeline {
             }
         }
 
+        stage('Terraform Apply') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'azure-credentials-id', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')]) {
+                    script {
+                        // Ensure Terraform is initialized
+                        sh """
+                            terraform init
+                            terraform apply -auto-approve
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Deploy to AKS') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'azure-credentials-id', usernameVariable: 'AZURE_CLIENT_ID', passwordVariable: 'AZURE_CLIENT_SECRET')]) {
