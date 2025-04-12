@@ -39,7 +39,7 @@ pipeline {
             steps {
                 dir('terraform') {
                     bat 'terraform init'
-                    bat 'terraform apply -auto-approve'
+                    bat 'terraform apply -auto-approve -var-file="terraform.tfvars"'
                 }
             }
         }
