@@ -68,3 +68,7 @@ resource "azurerm_role_assignment" "acr_push" {
 
   depends_on = [azurerm_container_registry.acr]
 }
+
+output "aks_cluster_name" {
+  value = azurerm_kubernetes_cluster.aks.name
+}
