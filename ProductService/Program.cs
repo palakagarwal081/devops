@@ -1,5 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000); // You can change the port if needed
+});
+
 // Add services to the container.
 builder.Services.AddSingleton<ProductService.Services.IProductService, ProductService.Services.ProductService>();
 builder.Services.AddControllers();
