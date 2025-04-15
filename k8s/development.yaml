@@ -16,6 +16,6 @@ spec:
       - name: task-api
         image: codecraftacr123.azurecr.io/taskapi:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
       imagePullSecrets:
       - name: acr-auth
