@@ -1,0 +1,9 @@
+{
+	"name": "palak01ADF",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a294398a-2344-463f-a115-50a6d3bce6ec",
+		"tenantId": "1a7c998d-d7c1-4821-9e89-e43b6077ecea"
+	}
+}
